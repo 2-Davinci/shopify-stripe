@@ -5,6 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Avatar, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 const Header = () => {
   const productData = useSelector((state) => state.khen.productData);
   console.log(productData);
@@ -33,14 +34,17 @@ const Header = () => {
             <li className="text-base text-black font-bold hover:text-orange-900 cursor-pointer duration-300  underline-offset-2 rounded-full decoration-[1px] transition-all ">
               Blogs
             </li>
-            <div className="relative">
-              <IconButton>
-                <ShoppingCartIcon className=" text-orange-900" />
-              </IconButton>
-              <span className="absolute top-0 flex items-center right-2 -mr-2 mb-1 text-white bg-green-500 rounded-full h-5 px-1 cursor-pointer ">
-                {productData.length}
-              </span>
-            </div>
+            <Link to="/cart">
+              <div className="relative">
+                <IconButton>
+                  <ShoppingCartIcon className=" text-orange-900" />
+                </IconButton>
+                <span className="absolute top-0 flex items-center right-2 -mr-2 mb-1 text-white bg-green-500 rounded-full h-5 px-1 cursor-pointer ">
+                  {productData.length}
+                </span>
+              </div>
+            </Link>
+
             <IconButton>
               <Avatar src="a" />
             </IconButton>

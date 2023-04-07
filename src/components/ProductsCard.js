@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/khenSlice";
 
+import { ToastContainer, toast } from "react-toastify";
 const ProductsCard = ({ products }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const ProductsCard = ({ products }) => {
                     quantity: 1,
                     description: products.description,
                   })
-                )
+                ) && toast.success(`${products.title} is added`)
               }
               className="absolute z-20 w-[100px] text-gray-500 hover:text-gray-900 flex items-center gap-1 top-0 transform -translate-x-32 group-hover:translate-x-0 transition-transform cursor-pointer duration-500">
               add to cart
@@ -74,6 +75,18 @@ const ProductsCard = ({ products }) => {
           </p>
         </div>
       </div>
+      <ToastContainer
+        position="top-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
