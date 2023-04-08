@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { toast } from "react-toastify";
 import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 
 const Cart = () => {
   const userInfo = useSelector((state) => state.khen.userInfo);
@@ -24,6 +25,12 @@ const Cart = () => {
     });
     setTotalAmt(price);
   }, [productData]);
+  const payment = async (token) => {
+    await axios.post("https://localhost:800/pay", {
+      amount: totalAmt * 100,
+      token: token,
+    });
+  };
   return (
     <div className="">
       <div className="relative">
@@ -72,9 +79,10 @@ const Cart = () => {
           {payNow && (
             <div className="w-full mt-6 flex items-center justify-center">
               <StripeCheckout
-                stripeKey="pk_test_51MuNmTLk5zmjGBUCGlLSAYlrAGwIGrVPUnP6Uxwvsiu49es6fgJYfz4JkQOsyGyUwNmrir8u7luLikoszKNi570l00nlVWxDj9"
+                stripeKey="pk_test_51MuVqcInKzArMYSdqeqjyZLYA2mQKZ6NQWt2NRByuHoegO1i3GuFK2fHZWBGFamMd1afnhbywQQxR92gMYREMunD003cWT4Lnw"
                 name="Davinci Shopify"
                 amount={totalAmt * 100}
+                token={payment}
                 label="Pay to Davinci"
                 description={`Your payment amount is ${totalAmt} `}
                 email={userInfo.email}
