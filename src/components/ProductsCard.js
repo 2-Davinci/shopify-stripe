@@ -36,7 +36,7 @@ const ProductsCard = ({ products }) => {
       <div className="w-full border-[1px] px-2 py-4 shadow-sm ">
         <div className="flex justify-between items-center ">
           <h2 className="font-titleFont text-base font-bold ">
-            {products.title.substring(0, 16)}
+            {products.title.substring(0, 15)}
           </h2>
           <div className="flex justify-end gap-2 relative overflow-hidden w-28 text-sm  ">
             <div className="flex gap-2 transform group-hover:translate-x-24 transition-transform duration-500">
@@ -49,7 +49,7 @@ const ProductsCard = ({ products }) => {
               onClick={() =>
                 dispatch(
                   addToCart({
-                    _id: products._id,
+                    _id: products.id,
                     title: products.title,
                     image: products.image,
                     price: products.price,

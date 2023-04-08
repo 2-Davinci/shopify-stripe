@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
+import { toast } from "react-toastify";
+import StripeCheckout from "react-stripe-checkout";
 
 const Cart = () => {
+  const userInfo = useSelector((state) => state.khen.userInfo);
   const productData = useSelector((state) => state.khen.productData);
   const [totalAmt, setTotalAmt] = useState("");
+  const [payNow, setPayNow] = useState(false);
+  const handleCheckOut = () => {
+    if (userInfo) {
+      setPayNow(true);
+    } else {
+      toast.error("Please Sign in to  checkout");
+    }
+  };
   useEffect(() => {
     let price = 0;
     productData.map((item) => {
@@ -48,15 +59,28 @@ const Cart = () => {
           <p className="font-titleFont font-semibold flex justify-between mt-6">
             Total{" "}
             <span className="text-xl font-bold ">
-              ${totalAmt - (totalAmt / 90).toFixed(2)}
+              ${(totalAmt - (totalAmt / 90).toFixed(2)).toFixed(2)}
             </span>
           </p>
           <button
+            onClick={handleCheckOut}
             type="submit"
             className="text-base bg-black text-white w-full py-3 mt-6 hover:bg-gray-800 duration-500">
             {" "}
             Proceed to checkout
           </button>
+          {payNow && (
+            <div className="w-full mt-6 flex items-center justify-center">
+              <StripeCheckout
+                stripeKey="pk_test_51MuNmTLk5zmjGBUCGlLSAYlrAGwIGrVPUnP6Uxwvsiu49es6fgJYfz4JkQOsyGyUwNmrir8u7luLikoszKNi570l00nlVWxDj9"
+                name="Davinci Shopify"
+                amount={totalAmt * 100}
+                label="Pay to Davinci"
+                description={`Your payment amount is ${totalAmt} `}
+                email={userInfo.email}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

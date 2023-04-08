@@ -44,6 +44,12 @@ export const khenSlice = createSlice({
         item.quantity--;
       }
     },
+    addUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    removeUser: (state) => {
+      state.userInfo = null;
+    },
   },
 });
 export const {
@@ -52,5 +58,7 @@ export const {
   resetCart,
   increamentQuantity,
   decreamentQuantity,
+  addUser,
+  removeUser,
 } = khenSlice.actions;
 export default khenSlice.reducer;

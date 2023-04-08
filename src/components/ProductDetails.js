@@ -78,7 +78,7 @@ const ProductDetails = () => {
                 onClick={() =>
                   dispatch(
                     addToCart({
-                      _id: details._id,
+                      _id: details.id,
                       title: details.title,
                       image: details.image,
                       price: details.price,

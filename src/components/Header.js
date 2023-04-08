@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 const Header = () => {
   const productData = useSelector((state) => state.khen.productData);
-  console.log(productData);
+  const userInfo = useSelector((state) => state.khen.userInfo);
   return (
     <div className=" w-full h-20 sticky top-0 z-50 bg-white border-b-[1px] border-b-gray-800 font-titleFont ">
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
@@ -44,10 +44,16 @@ const Header = () => {
                 </span>
               </div>
             </Link>
-
-            <IconButton>
-              <Avatar src="a" />
-            </IconButton>
+            <Link to="/login">
+              <IconButton>
+                <Avatar src={userInfo ? userInfo.image : false} />
+              </IconButton>
+            </Link>
+            {userInfo && (
+              <p className="text-base font-titleFont font-semibold underline underline-offset-2 ">
+                {userInfo.name}
+              </p>
+            )}
           </ul>
         </div>
       </div>
